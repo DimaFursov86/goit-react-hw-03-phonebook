@@ -1,0 +1,17 @@
+.contactItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.contactItemText:not(:last-child) {
+  margin-right: 20px;
+}
+.contactItemText {
+  border: none;
+  border-radius: 4px;
+  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover {
+    transform: scale(1.05);
+    background-color: rgb(240, 126, 126);
+  }
+}
