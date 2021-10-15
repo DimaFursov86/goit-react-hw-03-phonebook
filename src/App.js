@@ -4,18 +4,20 @@ import Section from "./components/Section";
 import ContactForm from "./components/ContactForm";
 import ContactList from "./components/ContactList";
 import Filter from "./components/Filter";
-// import contacts from "./contacts.json";
+import contacts from "./contacts.json";
 import s from "./App.module.scss";
 
 class App extends Component {
   state = {
-    contacts: [],
+    contacts: contacts,
     filter: "",
   };
   componentDidMount() {
     const contacts = localStorage.getItem("contacts");
     const parsedContacts = JSON.parse(contacts);
-    this.setState({ contacts: parsedContacts });
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
   }
   componentDidUpdate(prevProps, prevState) {
     if (this.state.contacts !== prevState.contacts) {
@@ -55,13 +57,9 @@ class App extends Component {
   getVisibleContacts = () => {
     const { filter, contacts } = this.state;
     const normalizedFilter = filter.toLowerCase();
-    if (this.state.contacts !== []) {
-      return contacts.filter((contact) =>
-        contact.name.toLowerCase().includes(normalizedFilter)
-      );
-    } else {
-      return [];
-    }
+    return contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
   };
 
   render() {
