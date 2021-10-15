@@ -12,7 +12,16 @@ class App extends Component {
     contacts: contacts,
     filter: "",
   };
-
+  componentDidMount() {
+    const contacts = localStorage.getItem("contacts");
+    const parsedContacts = JSON.parse(contacts);
+    this.setState({ contacts: parsedContacts });
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
+    }
+  }
   addContact = ({ name, number }) => {
     const nameArr = this.getVisibleContacts();
     const existName = nameArr.map((obj) => obj.name);
